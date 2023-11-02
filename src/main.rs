@@ -67,12 +67,12 @@ pub fn is_valid(s: String) -> bool {
     return true;
 }
 
-// Input: n = 3
-// Output: ["((()))","(()())","(())()","()(())","()()()"]
-// Example 2:
+// // Input: n = 3
+// // Output: ["((()))","(()())","(())()","()(())","()()()"]
+// // Example 2:
 
-// Input: n = 1
-// Output: ["()"]
+// // Input: n = 1
+// // Output: ["()"]
 struct Solution {}
 
 impl Solution {
@@ -145,5 +145,52 @@ fn main() {
     let sol = Solution::generate_parenthesis(3);
     for i in sol {
         println!("{i}");
+    }
+
+    let ans = Solution::is_happy(5);
+    println!("{}", ans);
+    let ans = Solution::reverse_bits(4294967293);
+
+    println!("{}", ans);
+}
+impl Solution {
+    pub fn get_sum_of_square_of_digits(n: i32) -> i32 {
+        let mut number = n;
+        let mut digit_square_sum = 0;
+        let mut curr_digit;
+        while number != 0 {
+            curr_digit = number % 10;
+            digit_square_sum = digit_square_sum + curr_digit * curr_digit;
+            number = number / 10;
+        }
+        println!("{}", digit_square_sum);
+        digit_square_sum
+    }
+    pub fn is_happy(n: i32) -> bool {
+        let mut number = n;
+        while number > 4 {
+            println!("new number {number}");
+            number = Solution::get_sum_of_square_of_digits(number);
+        }
+        number == 1
+    }
+}
+
+impl Solution {
+    pub fn reverse_bits(x: u32) -> u32 {
+        let mut x = x;
+
+        let mut count = 1;
+
+        let mut ans: u32 = 0;
+        let base: u32 = 2;
+
+        while x != 0 {
+            let pow = 32 - count;
+            ans = ans + base.pow(pow);
+            x = x / 2;
+            count += 1;
+        }
+        ans
     }
 }
